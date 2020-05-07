@@ -21,12 +21,21 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
+          initialRouteName="ProductsOverView"
           screenOptions={{
-            backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
-            headerTintColor: Platform.OS === 'android' ? 'white': Colors.primary,
+            headerStyle: {
+              backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
+            },
+            headerTintColor: Platform.OS === 'android' ? 'white': Colors.primary,    
           }}
         >
-          <Stack.Screen name='ProductsOverView' component={ProductsOverViewScreen}/>
+          <Stack.Screen  
+            name='ProductsOverView' 
+            component={ProductsOverViewScreen}
+            options={{
+              title: 'All Products'
+            }}
+          />
         </Stack.Navigator>   
       </NavigationContainer>
     </Provider>
