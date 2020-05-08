@@ -2,53 +2,22 @@ import React from 'react';
 import {createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Platform } from 'react-native'
 
 import productReducer from './store/reducers/products';
-import ProductsOverViewScreen from './screens/shop/ProductsOverViewScreen';
-import ProductDetailScreen from './screens/shop/ProductDetailScreen';
-import Colors from './constants/colors';
+import StackNavigator from './navigation/StackNavigator'
 
 const rootReducer = combineReducers({
   products: productReducer,
 })
 
 const store = createStore(rootReducer);
-const Stack = createStackNavigator();
 
 export default function App() {
+
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="ProductsOverView"
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
-            },
-            headerTintColor: Platform.OS === 'android' ? 'white': Colors.primary,    
-          }}
-        >
-          <Stack.Screen  
-            name='ProductsOverView' 
-            component={ProductsOverViewScreen}
-            options={{
-              title: 'All Products'
-            }}
-          />
-          <Stack.Screen
-            name='ProductDetail'
-            component={ProductDetailScreen}
-            options={(
-              ({route}) => ({
-                title: ()=>{
-                  route.params.productId
-                }
-              })
-            )}
-          />
-        </Stack.Navigator>   
+        <StackNavigator/>
       </NavigationContainer>
     </Provider>
   );
