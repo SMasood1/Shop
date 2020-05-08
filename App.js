@@ -7,6 +7,7 @@ import { Platform } from 'react-native'
 
 import productReducer from './store/reducers/products';
 import ProductsOverViewScreen from './screens/shop/ProductsOverViewScreen';
+import ProductDetailScreen from './screens/shop/ProductDetailScreen';
 import Colors from './constants/colors';
 
 const rootReducer = combineReducers({
@@ -35,6 +36,17 @@ export default function App() {
             options={{
               title: 'All Products'
             }}
+          />
+          <Stack.Screen
+            name='ProductDetail'
+            component={ProductDetailScreen}
+            options={(
+              ({route}) => ({
+                title: ()=>{
+                  route.params.productId
+                }
+              })
+            )}
           />
         </Stack.Navigator>   
       </NavigationContainer>

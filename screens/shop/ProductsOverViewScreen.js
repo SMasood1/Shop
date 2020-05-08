@@ -1,10 +1,12 @@
 import React from 'react';
-import { FlatList, Text} from 'react-native';
+import { FlatList} from 'react-native';
 import { useSelector } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import ProductItem from '../../components/shop/ProductItem';
 
-const ProductsOverViewScreen = ()=>{
+const ProductsOverViewScreen = (props)=>{
     const products = useSelector(state => state.products.availableProducts);
     return (
         <FlatList 
@@ -14,7 +16,9 @@ const ProductsOverViewScreen = ()=>{
                     image={itemData.item.imageUrl} 
                     title={itemData.item.title} 
                     price={itemData.item.price}
-                    onViewDetail={()=>{}}
+                    onViewDetail={()=>{
+                        props.navigation.navigate('ProductDetail', {productId: itemData.item.id})
+                    }}
                     onAddToCart={()=>{}}/>
                 )}
             keyExtractor={item => item.id}>
