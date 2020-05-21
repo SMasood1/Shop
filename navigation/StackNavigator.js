@@ -28,7 +28,7 @@ const StackNavigator = () => {
         },
         headerRight: () => (
           <HeaderButtons HeaderButtonComponent={Header}>
-            <Item onPress={navigation.navigate('Cart')} title="Cart" iconName="md-cart" />
+            <Item onPress={()=>(navigation.navigate('Cart'))} title="Cart" iconName="md-cart" />
           </HeaderButtons>
         )
       })}
