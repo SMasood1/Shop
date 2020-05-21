@@ -1,24 +1,26 @@
-import React from 'react';
-import {createStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { useFonts } from '@use-expo/font';
-import { AppLoading } from 'expo';
+import React from "react";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { useFonts } from "@use-expo/font";
+import { AppLoading } from "expo";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-import productReducer from './store/reducers/products';
-import StackNavigator from './navigation/StackNavigator'
+import productReducer from "./store/reducers/products";
+import cartReducer from './store/reducers/cart';
+import StackNavigator from "./navigation/StackNavigator";
 
 const rootReducer = combineReducers({
   products: productReducer,
-})
+  cart: cartReducer 
+});
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf")
   });
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -26,11 +28,9 @@ export default function App() {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          {/* Getting an error because of StackNavigator*/}
-          <StackNavigator/>
+          <StackNavigator />
         </NavigationContainer>
       </Provider>
-      
     );
   }
 }
