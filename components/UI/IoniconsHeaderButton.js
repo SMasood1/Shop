@@ -5,10 +5,10 @@ import { HeaderButton } from 'react-navigation-header-buttons';
 import Colors from '../../constants/Colors';
 
 
-const Header = props =>{
+const IoniconsHeaderButton = props =>{
     return (
         <HeaderButton {...props} IconComponent={Ionicons} iconSize={23} color={Platform.OS === 'android' ? 'white' : Colors.primary}/>
     )
 }
 
-export default Header;
+export default IoniconsHeaderButton;

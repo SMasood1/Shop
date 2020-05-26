@@ -7,12 +7,12 @@ import { AppLoading } from "expo";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import productReducer from "./store/reducers/products";
-import cartReducer from './store/reducers/cart';
-import StackNavigator from "./navigation/StackNavigator";
+import cartReducer from "./store/reducers/cart";
+import ShopNavigator from "./navigation/ShopNavigator";
 
 const rootReducer = combineReducers({
   products: productReducer,
-  cart: cartReducer 
+  cart: cartReducer,
 });
 
 const store = createStore(rootReducer, composeWithDevTools());
@@ -28,7 +28,7 @@ export default function App() {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <StackNavigator />
+          <ShopNavigator />
         </NavigationContainer>
       </Provider>
     );
