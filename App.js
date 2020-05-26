@@ -6,6 +6,7 @@ import { useFonts } from "@use-expo/font";
 import { AppLoading } from "expo";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+import orderReducer from './store/reducers/orders';
 import productReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
 import ShopNavigator from "./navigation/ShopNavigator";
@@ -13,6 +14,7 @@ import ShopNavigator from "./navigation/ShopNavigator";
 const rootReducer = combineReducers({
   products: productReducer,
   cart: cartReducer,
+  orders: orderReducer
 });
 
 const store = createStore(rootReducer, composeWithDevTools());

@@ -14,6 +14,7 @@ import ProductsOverViewScreen from "../screens/shop/ProductsOverViewScreen";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
+import UserProductsScreen from '../screens/user/UserProductsScreen'
 import Colors from "../constants/Colors";
 
 // Styling to be applyed to all screens
@@ -111,6 +112,35 @@ const OrdersNavigator = () => {
         }}
       />
     </OrdersStackNavigator.Navigator>
+  );
+};
+
+const AdminStackNavigator = createStackNavigator();
+
+const AdminNavigator = () => {
+  return (
+    <AdminStackNavigator.Navigator
+      screenOptions={({ navigation }) => ({
+        ...defaultNavOptions,
+        headerLeft: () => (
+          <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+            <Item
+              onPress={() => navigation.toggleDrawer()}
+              title="Menu"
+              iconName="md-menu"
+            />
+          </HeaderButtons>
+        )
+      })}
+    >
+      <AdminStackNavigator.Screen
+        name="Orders"
+        component={UserProductsScreen}
+        options={{
+          title: "Your Orders"
+        }}
+      />
+    </AdminStackNavigator.Navigator>
   );
 };
 
