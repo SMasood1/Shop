@@ -9,7 +9,7 @@ import { Platform } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { Ionicons } from "@expo/vector-icons";
 
-import HeaderButton from "../components/UI/HeaderButton";
+import IoniconsHeaderButton from "../components/UI/IoniconsHeaderButton";
 import ProductsOverViewScreen from "../screens/shop/ProductsOverViewScreen";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import CartScreen from "../screens/shop/CartScreen";
@@ -46,7 +46,7 @@ const ProductsNavigator = () => {
         component={ProductsOverViewScreen}
         options={({ navigation }) => ({
           headerLeft: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
               <Item
                 onPress={() => navigation.toggleDrawer()}
                 title="Menu"
@@ -55,7 +55,7 @@ const ProductsNavigator = () => {
             </HeaderButtons>
           ),
           headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
               <Item
                 onPress={() => navigation.navigate("Cart")}
                 title="Cart"
@@ -93,7 +93,7 @@ const OrdersNavigator = () => {
       screenOptions={({ navigation }) => ({
         ...defaultNavOptions,
         headerLeft: () => (
-          <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
             <Item
               onPress={() => navigation.toggleDrawer()}
               title="Menu"
