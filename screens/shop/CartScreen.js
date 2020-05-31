@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, FlatList } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 
+import Card from "../../components/UI/Card";
 import CartItem from "../../components/shop/CartItem";
 import Colors from "../../constants/Colors";
 import * as cartActions from "../../store/actions/cart";
@@ -27,9 +28,11 @@ const CartScreen = props => {
   const dispatch = useDispatch();
   return (
     <View style={styles.screen}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.summeryText}>
-          <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text>
+          <Text style={styles.amount}>
+            ${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}
+          </Text>
         </Text>
         <Button
           title="Order Now"
@@ -38,8 +41,8 @@ const CartScreen = props => {
           onPress={() => {
             dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
           }}
-        ></Button>
-      </View>
+        />
+      </Card>
       <FlatList
         data={cartItems}
         keyExtractor={item => item.productId}
@@ -48,7 +51,6 @@ const CartScreen = props => {
             quantity={itemData.item.quantity}
             title={itemData.item.productTitle}
             amount={itemData.item.sum}
-            deleteable
             onRemove={() => {
               dispatch(cartActions.removeFromCart(itemData.item.productId));
             }}
@@ -68,14 +70,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 20,
-    padding: 10,
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: "white"
+    padding: 10
   },
   summeryText: {
     fontFamily: "open-sans-bold",
