@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import { format } from 'date-fns'
 
 class Order {
   constructor(id, items, totalAmount, date) {
@@ -8,11 +8,9 @@ class Order {
     this.date = date;
   }
 
+  // Corrected error with date and time
   get readableDate() {
-    
-    // Not working
-    // return moment(this.date).format("MMMM Do YYYY, hh");
-    return 'Wed, March 23, 2020'
+    return format(new Date(), 'Pp')
   }
 }
 export default Order;
