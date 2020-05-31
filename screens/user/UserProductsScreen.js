@@ -1,18 +1,32 @@
 import React from "react";
-import { FlatList, StyleSheet, Button } from "react-native";
+import { FlatList, Button, Platform, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import * as productsActions from "../../store/actions/products";
 import ProductItem from "../../components/shop/ProductItem";
 import Colors from "../../constants/Colors";
+import * as productsActions from "../../store/actions/products";
 
 const UserProductsScreen = props => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
 
   const editProductHandler = id => {
-    props.navigation.navigate("EditProduct", { id: id });
+    props.navigation.navigate("EditProduct", { productId: id });
   };
+
+  const deleteHandler = id => {
+    Alert.alert("Are you sure?", "Do you really want to delete this item?", [
+      { text: "No", style: "default" },
+      {
+        text: "Yes",
+        style: "destructive",
+        onPress: () => {
+          dispatch(productsActions.deleteProduct(id));
+        }
+      }
+    ]);
+  };
+
   return (
     <FlatList
       data={userProducts}
@@ -36,15 +50,11 @@ const UserProductsScreen = props => {
           <Button
             color={Colors.primary}
             title="Delete"
-            onPress={() => {
-              dispatch(productsActions.deleteProduct(itemData.item.id));
-            }}
+            onPress={deleteHandler.bind(this, itemData.item.id)}
           />
         </ProductItem>
       )}
     />
   );
 };
-
-const styles = StyleSheet.create({});
 export default UserProductsScreen;
