@@ -37,7 +37,7 @@ const ProductsOverViewScreen = props => {
           />
           <Button
             color={Colors.primary}
-            title="To Cart"
+            title="Add To Cart"
             onPress={() => {
               dispatch(cartActions.addToCart(itemData.item));
             }}
