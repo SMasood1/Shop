@@ -17,20 +17,21 @@ import Colors from "../../constants/Colors";
 const ProductsOverViewScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const products = useSelector(state => state.products.availableProducts);
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => {
+    setIsRefreshing(true);
     setError(null);
-    setIsLoading(true);
     try{
       await dispatch(productActions.fetchProducts());
     }
     catch(err){
       setError(err.message);
     }
-    setIsLoading(false);
+    setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(()=>{
@@ -39,7 +40,8 @@ const ProductsOverViewScreen = props => {
   }, [loadProducts]);
 
   useEffect(() => {
-    loadProducts();
+    setIsLoading(true);
+    loadProducts().then(()=>setIsLoading(false), null);
   }, [loadProducts, dispatch]);
 
   const selectItemHandler = (id, title) => {
@@ -73,6 +75,8 @@ const ProductsOverViewScreen = props => {
   }
   return (
     <FlatList
+      onRefresh={loadProducts}
+      refreshing={isRefreshing}
       data={products}
       renderItem={itemData => (
         <ProductItem
