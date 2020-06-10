@@ -33,8 +33,12 @@ const ProductsOverViewScreen = props => {
     setIsLoading(false);
   }, [dispatch, setIsLoading, setError]);
 
+  useEffect(()=>{
+    const unsubscribe = props.navigation.addListener('focus',()=>loadProducts());
+    return unsubscribe;
+  }, [loadProducts]);
+
   useEffect(() => {
-    
     loadProducts();
   }, [loadProducts, dispatch]);
 
@@ -49,7 +53,7 @@ const ProductsOverViewScreen = props => {
     return (
       <View style={styles.centered}>
         <Text>An error occured!</Text>
-        <Button title='Try again' onPress={loadProducts} color={Colors.primary}></Button>
+        <Button  title='Try again' onPress={loadProducts} color={Colors.primary}/>
       </View>
     );
   }
