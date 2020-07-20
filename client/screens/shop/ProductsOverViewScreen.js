@@ -5,7 +5,7 @@ import {
   View,
   FlatList,
   Button,
-  ActivityIndicator,
+  ActivityIndicator
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -25,23 +25,24 @@ const ProductsOverViewScreen = props => {
   const loadProducts = useCallback(async () => {
     setIsRefreshing(true);
     setError(null);
-    try{
+    try {
       await dispatch(productActions.fetchProducts());
-    }
-    catch(err){
+    } catch (err) {
       setError(err.message);
     }
     setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
 
-  useEffect(()=>{
-    const unsubscribe = props.navigation.addListener('focus',()=>loadProducts());
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener("focus", () =>
+      loadProducts()
+    );
     return unsubscribe;
   }, [loadProducts]);
 
   useEffect(() => {
     setIsLoading(true);
-    loadProducts().then(()=>setIsLoading(false), null);
+    loadProducts().then(() => setIsLoading(false), null);
   }, [loadProducts, dispatch]);
 
   const selectItemHandler = (id, title) => {
@@ -55,7 +56,11 @@ const ProductsOverViewScreen = props => {
     return (
       <View style={styles.centered}>
         <Text>An error occured!</Text>
-        <Button  title='Try again' onPress={loadProducts} color={Colors.primary}/>
+        <Button
+          title="Try again"
+          onPress={loadProducts}
+          color={Colors.primary}
+        />
       </View>
     );
   }

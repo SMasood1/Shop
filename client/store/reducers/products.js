@@ -58,6 +58,7 @@ export default (state = initialState, action) => {
       );
       const updatedUserProducts = [...state.userProducts];
       updatedUserProducts[productIndex] = updatedProduct;
+      
       const availableProductIndex = state.availableProducts.findIndex(
         prod => prod.id === action.pid
       );

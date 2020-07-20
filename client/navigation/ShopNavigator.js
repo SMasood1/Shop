@@ -16,6 +16,7 @@ import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import UserProductsScreen from "../screens/user/UserProductsScreen";
 import EditProductScreen from "../screens/user/EditProductScreen";
+import AuthScreen from "../screens/user/AuthScreen";
 import Colors from "../constants/Colors";
 
 // Styling to be applyed to all screens
@@ -234,4 +235,29 @@ const ShopNavigator = () => {
   );
 };
 
-export default ShopNavigator;
+const AuthStackNavigator = createStackNavigator();
+
+// Navigation for Orders screen
+const AuthNavigator = () => {
+  return (
+    <AuthStackNavigator.Navigator
+      screenOptions={defaultNavOptions}
+    >
+      <AuthStackNavigator.Screen name="Authentication" component={AuthScreen} />
+    </AuthStackNavigator.Navigator>
+  );
+};
+
+// const MainStackNavigator = createStackNavigator();
+
+// // Navigation for Orders screen
+// const MainNavigator = () => {
+//   return (
+
+//     <MainStackNavigator>
+//       {'' ? }
+//     </MainStackNavigator>
+//   )
+// }
+
+export default AuthNavigator;
