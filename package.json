@@ -1,0 +1,22 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/SMasood1/Shop.git",
+  "author": "Muhammad Masood <1masoodsha1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn app.js",
+    "server": "nodemon app.js",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
