@@ -4,12 +4,11 @@ import {
   UPDATE_PRODUCT,
   SET_PRODUCTS
 } from "../actions/products";
-import PRODUCTS from "../../data/original";
 import Product from "../../models/product";
 
 const initialState = {
-  availableProducts: PRODUCTS,
-  userProducts: PRODUCTS.filter(prod => prod.ownerId === "u1")
+  availableProducts: [],
+  userProducts: []
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +20,7 @@ export default (state = initialState, action) => {
 
       }
     case DELETE_PRODUCT:
+      console.log('reducer', action);
       return {
         ...state,
         userProducts: state.userProducts.filter(
