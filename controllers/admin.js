@@ -9,6 +9,21 @@ exports.postAddProduct = (req, res) => {
   product.save();
   res.status(200).send(product);
 };
+exports.patchEditProduct = (req, res)=>{
+  const prodId = req.params.productId;
+  const updatedTitle = req.body.title;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedDesc = req.body.description;
+
+  const updatedProduct = new Product(
+    prodId,
+    updatedTitle,
+    updatedImageUrl,
+    updatedDesc
+  );
+  updatedProduct.save();
+  res.status(200).send();
+}
 exports.deleteProduct = (req, res) => {
   console.log("Backend delete prod id", req.params.productId);
   const prodId = req.params.productId;

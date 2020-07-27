@@ -20,8 +20,16 @@ module.exports = class Product {
     this.price = price;
   }
   save() {
-    this.id = Math.random().toString();
-    products.push(this);
+    if (this.id) {
+      const existingProductIndex = products.findIndex(
+        prod => prod.id === this.id
+      );
+      const updatedProducts = [...products];
+      updatedProducts[existingProductIndex] = this;
+    } else {
+      this.id = Math.random().toString();
+      products.push(this);
+    }
   }
 
   static fetchAll() {
