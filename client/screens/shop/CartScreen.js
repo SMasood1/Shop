@@ -1,5 +1,12 @@
-import React, {useState} from "react";
-import { View, Text, Button, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator
+} from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -11,14 +18,21 @@ import * as ordersActions from "../../store/actions/orders";
 
 const CartScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
+  const cartTotalAmount = useSelector(state => {
+    return state.cart.totalAmount;
+  });
+  const dispatch = useDispatch();
 
-  const cartTotalAmount = useSelector(state => state.cart.totalAmount);
+  useEffect(() => {
+    dispatch(cartActions.fetchCartItems());
+  }, [dispatch]);
+
   const cartItems = useSelector(state => {
     const transformedCartItems = [];
     for (const key in state.cart.items) {
       transformedCartItems.push({
         productId: key,
-        productTitle: state.cart.items[key].productTitle,
+        productTitle: state.cart.items[key].title,
         quantity: state.cart.items[key].quantity,
         sum: state.cart.items[key].sum
       });
@@ -27,12 +41,11 @@ const CartScreen = props => {
       a.productId > b.productId ? 1 : -1
     );
   });
-  const dispatch = useDispatch();
-  const sendOrderHandler = async ()=>{
+  const sendOrderHandler = async () => {
     setIsLoading(true);
     await dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
     setIsLoading(false);
-  }
+  };
   return (
     <View style={styles.screen}>
       <Card style={styles.summary}>
@@ -41,14 +54,16 @@ const CartScreen = props => {
             ${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}
           </Text>
         </Text>
-        {isLoading ? <ActivityIndicator size="small" color={Colors.primary}/> :
-        (<Button
-          title="Order Now"
-          color={Colors.accent}
-          disabled={cartItems.length === 0}
-          onPress={sendOrderHandler}
-        />)}
-        
+        {isLoading ? (
+          <ActivityIndicator size="small" color={Colors.primary} />
+        ) : (
+          <Button
+            title="Order Now"
+            color={Colors.accent}
+            disabled={cartItems.length === 0}
+            onPress={sendOrderHandler}
+          />
+        )}
       </Card>
       <FlatList
         data={cartItems}
