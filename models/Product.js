@@ -1,42 +1,29 @@
-const products = [
-  {
-    id: "p1",
-    ownerId: "u1",
-    title: "Red Shirt",
-    imageUrl:
-      "https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg",
-    description: "A red t-shirt, perfect for days with non-red weather.",
-    price: 29.99
-  }
-];
+const { DataTypes } = require("sequelize");
 
-module.exports = class Product {
-  constructor(id, title, imageUrl, description, price) {
-    this.id = id;
-    this.ownerId = 'u1';
-    this.title = title;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.price = price;
-  }
-  save() {
-    if (this.id) {
-      const existingProductIndex = products.findIndex(
-        prod => prod.id === this.id
-      );
-      const updatedProducts = [...products];
-      updatedProducts[existingProductIndex] = this;
-    } else {
-      this.id = Math.random().toString();
-      products.push(this);
-    }
-  }
+const sequelize = require("../util/database");
 
-  static fetchAll() {
-    return products;
+const Product = sequelize.define("product", {
+  id: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
   }
-  static deleteById(id) {
-    const product = products.find(prod => prod.id === id);
-    products.splice(product, 1);
-  }
-};
+});
+module.exports = Product;
